@@ -1,13 +1,12 @@
 import os
-import sys
 import pygame
-import random
+from bird import Bird
+from pipe import Pipe
+from setting import WIDTH, HEIGHT
 
 # Initialize Pygame
 pygame.init()
 
-# Screen dimensions
-WIDTH, HEIGHT = 400, 500
 SCREEN = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Flappy Bird")
 
@@ -16,43 +15,13 @@ WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 GREEN = (0, 255, 0)
 
-# Game constants
-GRAVITY = 0.5
-FLAP_STRENGTH = -7
-PIPE_SPEED = 3
-PIPE_GAP = 150
-BIRD_START_X, BIRD_START_Y = 100, 300
-
 ASSETS_FOLDER = os.path.join("flappy-bird")
 
-# Load assets
-BIRD_IMAGE = pygame.transform.scale2x(pygame.image.load(os.path.join(ASSETS_FOLDER, "bluebird-midflap.png")))
-PIPE_IMAGE = pygame.image.load(os.path.join(ASSETS_FOLDER, "pipe-green.png"))
 BACKGROUND = pygame.transform.scale(pygame.image.load(os.path.join(ASSETS_FOLDER, "background-day.png")), (WIDTH, HEIGHT))
 
-# Define the Bird class
-class Bird:
-    def __init__(self):
-        self.image = BIRD_IMAGE
-        self.rect = self.image.get_rect(center=(BIRD_START_X, BIRD_START_Y))
-        self.velocity = 0
-
-    def flap(self):
-        self.velocity = FLAP_STRENGTH
-
-    def update(self):
-        self.velocity += GRAVITY
-        self.rect.y += int(self.velocity)
-
-    def draw(self, screen):
-        screen.blit(self.image, self.rect)
-    
-    def reset(self):
-        self.rect = self.image.get_rect(center=(BIRD_START_X, BIRD_START_Y))
-        self.velocity = 0
 
 # Function to display Game Over message
-def display_game_over(screen):
+def display_game_over(screen: pygame.Surface):
     font = pygame.font.Font(None, 35)
     text = font.render("Game Over", True, BLACK)
     subtext = font.render("Press Enter to play again", True, BLACK)
@@ -67,34 +36,6 @@ def display_game_over(screen):
 
     # Update the display
     pygame.display.flip()
-
-# Define the Pipe class
-class Pipe:
-    def __init__(self, x):
-        self.height = random.randint(50, HEIGHT - PIPE_GAP - 50)
-        self.top_image = pygame.transform.flip(PIPE_IMAGE, False, True)
-        self.bottom_image = PIPE_IMAGE
-        self.top_rect = self.top_image.get_rect(midbottom=(x, self.height))
-        self.bottom_rect = self.bottom_image.get_rect(midtop=(x, self.height + PIPE_GAP))
-
-    def update(self):
-        self.top_rect.x -= PIPE_SPEED
-        self.bottom_rect.x -= PIPE_SPEED
-
-    def draw(self, screen: pygame.Surface):
-        screen.blit(self.top_image, self.top_rect)
-        screen.blit(self.bottom_image, self.bottom_rect)
-
-    def offscreen(self):
-        return self.top_rect.x < -50
-
-    def collide(self, bird):
-        return self.top_rect.colliderect(bird.rect) or self.bottom_rect.colliderect(bird.rect)
-    
-    def reset(self):
-        self.height = random.randint(50, HEIGHT - PIPE_GAP - 50)
-        self.top_rect = self.top_image.get_rect(midbottom=(WIDTH + 100, self.height))
-        self.bottom_rect = self.bottom_image.get_rect(midtop=(WIDTH + 100, self.height + PIPE_GAP))
 
 # Game loop
 def game_loop():
