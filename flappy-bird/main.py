@@ -97,7 +97,6 @@ def game_loop():
 
         # Update the display
         pygame.display.flip()
-    display_game_over(SCREEN)
     pygame.quit()
 
 if __name__ == "__main__":
