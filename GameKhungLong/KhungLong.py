@@ -1,3 +1,4 @@
+import os
 import pygame
 pygame.init()
 screen=pygame.display.set_mode((600,300))
@@ -17,11 +18,12 @@ jump = False
 pausing = False
 font=pygame.font.SysFont('san',20)
 font1=pygame.font.SysFont('san',40)
-background=pygame.image.load('background.jpg')
-dinosaur=pygame.image.load('dinosaur.png')
-tree=pygame.image.load('tree.png')
-sound1=pygame.mixer.Sound('tick.wav')
-sound2=pygame.mixer.Sound('te.wav')
+ASSETS_FOLDER = os.path.join("GameKhungLong")
+background=pygame.image.load(os.path.join(ASSETS_FOLDER, 'background.jpg'))
+dinosaur=pygame.image.load(os.path.join(ASSETS_FOLDER,'dinosaur.png'))
+tree=pygame.image.load(os.path.join(ASSETS_FOLDER, 'tree.png'))
+sound1=pygame.mixer.Sound(os.path.join(ASSETS_FOLDER, 'tick.wav'))
+sound2=pygame.mixer.Sound(os.path.join(ASSETS_FOLDER,'te.wav'))
 clock=pygame.time.Clock()
 running= True
 while running:
