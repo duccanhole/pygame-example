@@ -23,7 +23,7 @@ BACKGROUND = pygame.transform.scale(pygame.image.load(os.path.join(ASSETS_FOLDER
 # Function to display Game Over message
 def display_game_over(screen: pygame.Surface):
     font = pygame.font.Font(None, 35)
-    text = font.render("Game Over", True, BLACK)
+    text = font.render("Game Over!", True, BLACK)
     subtext = font.render("Press Enter to play again", True, BLACK)
 
     # Get text rect and position it in the center of the screen
