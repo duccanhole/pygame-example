@@ -21,9 +21,9 @@ BACKGROUND = pygame.transform.scale(pygame.image.load(os.path.join(ASSETS_FOLDER
 
 
 # Function to display Game Over message
-def display_game_over(screen: pygame.Surface):
+def display_game_over(screen: pygame.Surface, score: int):
     font = pygame.font.Font(None, 35)
-    text = font.render("Game Over!", True, BLACK)
+    text = font.render(f"Game Over! Your score is {score}", True, BLACK)
     subtext = font.render("Press Enter to play again", True, BLACK)
 
     # Get text rect and position it in the center of the screen
@@ -64,7 +64,7 @@ def game_loop():
                     pipe.reset()
 
         if isOver: 
-            display_game_over(SCREEN)
+            display_game_over(SCREEN, score)
             continue
         # Update bird
         bird.update()
