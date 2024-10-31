@@ -51,7 +51,7 @@ def game_loop():
     food_x = round(random.randrange(0, WIDTH - SNAKE_BLOCK) / SNAKE_BLOCK) * SNAKE_BLOCK
     food_y = round(random.randrange(0, HEIGHT - SNAKE_BLOCK) / SNAKE_BLOCK) * SNAKE_BLOCK
     snake_list = []
-    snake_length = 10
+    snake_length = 1
         
     is_over = False
     while running:         
