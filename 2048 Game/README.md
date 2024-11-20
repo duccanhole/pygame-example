@@ -1,8 +1,8 @@
 # Explain
 ### Function
-`add_random_tile`: Hàm chọn ô trống và gán giá trị ngẫu nhiên giữa 2 hoặc 4.
-`draw_grid`: Hàm vẽ giá trị của lưới (grid) lên màn hình.
-`move`:
+- `add_random_tile`: Hàm chọn ô trống và gán giá trị ngẫu nhiên giữa 2 hoặc 4.
+- `draw_grid`: Hàm vẽ giá trị của lưới (grid) lên màn hình.
+- `move`:
     - Xoay lưới sao cho hướng di chuyển luôn về bên trái.
     - Thực hiện gộp các ô về bên trái thông qua hàm `move_left`
     - Xoay lưới lại về vị trí ban đầu.
