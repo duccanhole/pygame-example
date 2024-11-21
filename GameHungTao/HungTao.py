@@ -21,19 +21,19 @@ bowl = canvas.create_image(0, 420, anchor=NW, image=img[1])
 apple = canvas.create_image(x, y, anchor=NW, image=img[2])
 canvas.update()
 score = 0
+applet_fail = 0
 text_score = canvas.create_text(
-    620, 30, text="SCORE:" + str(score), fill="red", font=("Time", 20)
+    550, 30, text=f"SCORE:{score}, FAIL:{applet_fail}", fill="red", font=("Time", 20)
 )
 
 
 def AppleFall():
-    global apple, score
+    global apple, score, applet_fail
     canvas.move(apple, 0, 10)
+    should_reset_apple = False
     if canvas.coords(apple)[1] > 550:
-        canvas.delete(apple)
-        y = -20
-        x = randint(10, 690)
-        apple = canvas.create_image(x, y, anchor=NW, image=img[2])
+        should_reset_apple = True
+        applet_fail = applet_fail + 1
     if (
         canvas.coords(apple)[0] >= canvas.coords(bowl)[0]
         and canvas.coords(apple)[0] + 50 <= canvas.coords(bowl)[0] + 120
@@ -42,13 +42,13 @@ def AppleFall():
         and canvas.coords(apple)[1] + 50 <= canvas.coords(bowl)[1] + 37.5
     ):
         playsound(os.path.join(ASSETS_FOLDER, "vacham.wav"))
+        should_reset_apple = True
+        score = score + 1
+    if should_reset_apple:
         canvas.delete(apple)
         y = -20
         x = randint(10, 690)
         apple = canvas.create_image(x, y, anchor=NW, image=img[2])
-        score = score + 1
-        canvas.itemconfig(text_score, text="SCORE:" + str(score))
-    canvas.update()
 
 
 def right():
@@ -73,9 +73,16 @@ def keyPress(event):
 
 
 canvas.bind_all("<KeyPress>", keyPress)
-gameOver = False
-while not gameOver:
+
+while True:
+    if applet_fail > 5:
+        gameOver = True
+        canvas.itemconfig(text_score, text="GAME OVER !")
+        canvas.update()
+        continue
     AppleFall()
+    canvas.itemconfig(text_score, text=f"SCORE: {score}, FAIL: {applet_fail}")
+    canvas.update()
     sleep(0.05)
 
-game.mainloop()
+# game.mainloop()
