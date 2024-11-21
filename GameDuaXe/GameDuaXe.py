@@ -107,15 +107,10 @@ while running:
             if event.key == K_RIGHT and player.rect.center[0] < lane_right:
                 player.rect.x += 100
 
-        # Kiểm tra va chạm
-        for verhicle in Vehicle_group:
-            if pygame.sprite.collide_rect(player, verhicle):
-                gameover = True
-
     # Kiểm tra va chạm khi xe đứng im
-    if pygame.sprite.spritecollide(player, Vehicle_group, True):
-        gameover = True
-        crash_rect.center = [player.rect.center[0], player.rect.top]
+    # if pygame.sprite.spritecollide(player, Vehicle_group, True):
+    #     gameover = True
+    #     crash_rect.center = [player.rect.center[0], player.rect.top]
 
     # Vẽ địa hình cỏ
     screen.fill(green)
@@ -170,6 +165,12 @@ while running:
 
     # Vẽ nhóm xe lưu thông
     Vehicle_group.draw(screen)
+    
+    # Kiểm tra va chạm
+    for verhicle in Vehicle_group:
+        if pygame.sprite.collide_rect(player, verhicle):
+            gameover = True
+            crash_rect.center = [player.rect.center[0], player.rect.top]
 
     # Hiển thị điểm
     font = pygame.font.Font(pygame.font.get_default_font(), 16)
