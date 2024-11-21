@@ -61,6 +61,8 @@ if tree_x <= -20:
 if dinosaur_rect.colliderect(tree_rect):
     game_over = True
     pygame.mixer.Sound.play(sound2)
+```
+```python
 if game_over:
     gameover_txt = font1.render("GAME OVER", True, RED)
     gameover_txt2 = font1.render("PRESS SPACE TWICE TO PLAY AGAIN", True, RED)
